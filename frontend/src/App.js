@@ -1,6 +1,9 @@
 import React from 'react';
-import logo from './logo.svg';
+import data from './data'
 import './App.css';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+import HomeScreen from './Screens/HomeScreen';
+import ProductScreen from './Screens/ProductScreen';
 
 function App() {
   const openMenu =() =>
@@ -12,13 +15,14 @@ function App() {
     document.querySelector(".sidebar").classList.remove("open")
   }
   return (
+    <BrowserRouter>
     <div className="grid-container">
     <header className="header">
         <div className="logo">
             <button onClick={openMenu}>
                 &#9776;
             </button>
-            <a href="index.html">Star Jeans</a>
+            <Link to="/">StarJeans</Link>
         </div>
         <div className="links">
             <a href="cart.html">Cart</a>
@@ -39,20 +43,9 @@ function App() {
     </aside>
     <main className="main">
         <div className="content">
-            <ul className="products">
-                 <li>
-                    <div className="product">
-                        <img className= "product-image"src="/image/1.jpg"></img>
-                        <div className="pname">
-                            <a href="product.html">Jeans</a>
-                        </div>
-                        <div className="brand">StarJeans</div>
-                        <div className="precio">$200</div>
-                        <div className="ratings">5 Stars(10 reviews)</div>
-                    </div> 
-                 </li>
-            
-           </ul> 
+        <Route path="/" exact={true} component={HomeScreen} />
+        <Route path="/product/:id" component={ProductScreen} />
+     
         </div>
        
     </main>
@@ -60,6 +53,7 @@ function App() {
         All right reserved.
     </footer>
 </div>
+</BrowserRouter>
   );
 }
 
