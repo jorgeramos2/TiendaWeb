@@ -10,7 +10,7 @@ function CartScreen(props) {
 
 
     const productId = props.match.params.id;
-    const qty = props.location.search ? Number(props.location.search.split('=')[1]) : 1; 
+    const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1; 
     const dispatch = useDispatch();
     const removeFromCartHandler = (productId) => {
         dispatch(removeFromCart(productId));
@@ -39,7 +39,9 @@ function CartScreen(props) {
                     <div>
                         Precio
                     </div>
-                </li> {
+                </li> 
+                
+                {
                     cartItems.length === 0 ? 
                     <div>
                         Carrito vacío!
@@ -48,7 +50,7 @@ function CartScreen(props) {
                     cartItems.map(item =>
                         <li>
                             <div className= 'cart-image'>
-                            <img src = {item.image} alt = "producto"/>
+                            <img src = {item.image} alt = "product"/>
                             </div>
                             <div className='cart-name'> 
                                 <div>
@@ -58,30 +60,22 @@ function CartScreen(props) {
                                 </div>
                                 <div>
                                     Qty:
-                                    <select value={item.qty} onChange= {(e) => dispatch(addToCart(item.product, e.target.value))}>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
+                                    <select value={item.qty} onChange={(e) => dispatch(addToCart(item.product, e.target.value))}>
+                                        {[...Array(item.stock).keys()].map(x =>
+                                          <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                             )}
+                                     </select>
 
                                     <button type = 'button'  className='button' onClick = {() => removeFromCartHandler(item.product)}>
                                         Eliminar del carrito
                                     </button>
-
-
-
                                 </div>
                             </div>
                             <div className = 'cart-price'>
                                 ${item.price}
                             </div>
-
-
                         </li>
                     )
-
-
-
                 }
             </ul>
         </div>
