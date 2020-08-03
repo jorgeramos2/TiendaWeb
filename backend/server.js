@@ -3,7 +3,7 @@ import data from './data';
 import config from './config'
 import dotenv from 'dotenv'
 import mongoose, { mongo } from 'mongoose'
-import userRoute from './router/userRoute'
+import userRoute from './routes/userRoute'
 
 
 dotenv.config();
