@@ -1,9 +1,9 @@
 import React from 'react';
-import data from './data'
 import './App.css';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
 import ProductScreen from './Screens/ProductScreen';
+import CartScreen from './Screens/CartScreen';
 
 function App() {
   const openMenu =() =>
@@ -45,6 +45,7 @@ function App() {
         <div className="content">
         <Route path="/" exact={true} component={HomeScreen} />
         <Route path="/product/:id" component={ProductScreen} />
+        <Route path="/cart:id?" component={CartScreen}/>
      
         </div>
        
