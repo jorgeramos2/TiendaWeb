@@ -9,6 +9,10 @@ body
     height: 100vh;
     margin: 0;
 }
+a
+{
+  margin-left: 20px;
+}
 #root
 {
     height: 100%;
