@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { signin } from '../actions/userActions';
+import { signin, register } from '../actions/userActions';
 
 function RegisterScreen (props)
 {
@@ -23,7 +23,7 @@ function RegisterScreen (props)
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(signin(name, email, password));
+        dispatch(register(name, email, password));
     }
 
    return <div className = 'form'>
