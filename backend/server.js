@@ -10,6 +10,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
+const PORT = process.env.PORT || 3000;
 mongoose.connect(mongodbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true, 
@@ -33,4 +34,4 @@ app.get("/api/products",(req,res)=>{
     res.send(data.products);
 });
 
-app.listen(5000,()=>{console.log("Alive and well")});
+app.listen(PORT,()=>{console.log("Alive and well")});
