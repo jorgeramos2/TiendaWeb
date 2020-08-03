@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 import { productListReducer, productDetailsReducer } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers'
 
-const cartItem = Cookie.getJSON("cartItems") || []; 
+const cartItems = Cookie.getJSON("cartItems") || []; 
 
 const initialState = {cart: {cartItems} };
 const reducer = combineReducers({
