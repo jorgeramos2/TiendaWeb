@@ -1,18 +1,27 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import HomeScreen from './screens/HomeScreen';
-import ProductScreen from './screens/ProductScreen';
-import CartScreen from './screens/CartScreen';
+import HomeScreen from './Screens/HomeScreen';
+import ProductScreen from './Screens/ProductScreen';
+import CartScreen from './Screens/CartScreen';
+import SigninScreen from './Screens/SigninScreen';
+import { useSelector } from 'react-redux';
+import RegisterScreen from './Screens/RegisterScreen';
 
 function App() {
+
+    
+    const userSignin = useSelector(state => state.userSignin);
+    const {userInfo} = userSignin; 
+
+
   const openMenu =() =>
   {
     document.querySelector(".sidebar").classList.add("open");
   }
   const closeMenu =() =>
   {
-    document.querySelector(".sidebar").classList.remove("open")
+    document.querySelector(".sidebar").classList.remove("open");
   }
   return (
     <BrowserRouter>
@@ -26,7 +35,10 @@ function App() {
         </div>
         <div className="links">
             <a href="cart.html">Cart</a>
-            <a href="sesion.html">Signin</a>
+            {
+                userInfo? <Link to ='/profile'>{userInfo.name}</Link> : 
+                <Link to="/signin">Iniciar sesión</Link>
+            }
         </div>
     </header>
     <aside className="sidebar">
@@ -43,15 +55,16 @@ function App() {
     </aside>
     <main className="main">
         <div className="content">
-        <Route path="/" exact={true} component={HomeScreen} />
+        <Route path = "/signin" component = {SigninScreen} />  
+        <Route path = "/register" component = {RegisterScreen} />  
         <Route path="/product/:id" component={ProductScreen} />
         <Route path="/cart/:id?" component={CartScreen}/>
-     
+        <Route path="/" exact={true} component={HomeScreen} />
         </div>
        
     </main>
     <footer className="footer">
-        All right reserved.
+        Proyecto final Diseño de Aplicaciones Web 
     </footer>
 </div>
 </BrowserRouter>
