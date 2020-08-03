@@ -1,15 +1,36 @@
-import React from 'react'
-import data from '../data';
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { detailsProduct } from '../actions/productActions';
 
 function ProductScreen (props)
 {
-   const product = data.products.find(x=> x._id === props.match.params.id); 
+    const [qty, setQty] = useState(1);  
+    const productDetails = useSelector(state => state.productDetails);
+    const {product,loading,error} = productDetails;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(detailsProduct(props.match.params.id));
+        return () => {
+        };
+    }, []);
+
+    const handleAddToCart = () => {
+        props.history.push("/cart/" + props.match.params.id + "?qty=" + qty)
+    }
+
+
+
+
    return<div>
        <div className="back-to-result">
            <Link to ="/">Regresar</Link>
        </div>
-       <div className="details">
+        {loading ? <div>Cargando, por favor espere...</div> :
+          error ? <div>{error}</div> : (
+
+            <div className="details">
            <div className="details-info">
                <img src={product.image}></img>
            </div>
@@ -38,22 +59,28 @@ function ProductScreen (props)
                       Precio: {product.price} 
                    </li>
                    <li>
-                       Status : {product.status}
+                       Status : {product.stock > 0 ? "Disponible" : "Sin stock" }
                    </li>
                    <li>
-                       Cantidad : <select>
-                           <option>1</option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
+                       Cantidad : <select value={qty} onChange= {(e) => {setQty(e.target.value)}}>
+                        
+                           {[...Array(product.stock).keys()].map(x=> 
+                                <option value = {x+1}> {x+1}</option>
+                            
+                            )}
                        </select>
                    </li>
                    <li>
-                       <button className="button">Agregar </button>
+                    {product.stock > 0 && <button onClick ={handleAddToCart} className="button">Agregar</button>}
+                       
                    </li>
                </ul>
            </div>
        </div>
+
+          )
+        
+        }
        
    </div> 
 }
