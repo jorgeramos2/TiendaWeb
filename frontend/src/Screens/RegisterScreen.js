@@ -23,7 +23,7 @@ function RegisterScreen (props)
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(signin(name, email, password));
+        dispatch(register(name, email, password));
     }
 
    return <div className = 'form'>
