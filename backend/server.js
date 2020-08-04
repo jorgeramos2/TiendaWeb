@@ -11,6 +11,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 
 const mongodbUrl = config.MONGODB_URL;
+const PORT = process.env.PORT || 5000;
 mongoose.connect(mongodbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true, 
@@ -24,4 +25,4 @@ app.use("/api/users", userRoute);
 app.use('/api/products', productRoute)
 
 
-app.listen(5000,()=>{console.log("Alive and well")});
+app.listen(PORT,()=>{console.log("Alive and well")});
